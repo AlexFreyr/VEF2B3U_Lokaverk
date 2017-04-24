@@ -11,43 +11,16 @@ function Concert(eventDateName, name, dateOfShow, userGroupName, eventHallName, 
     this.imageSource = imageSource;
 }
 
-$(document).ready(function(){
-    //Nær í JSON object frá apis.is um tónleika á næstunni
-    $.ajax({
-        url: "http://apis.is/concerts",
-        type: "GET",
-        success : function(response){
-            // Geymir upplýsingarnar í array
-            var concert_list = [];
+//Upplýsingar frá AJAX verða geymdar hér
+concert_list = []
 
-            result = response.results;
-            for(var i = 0; i < result.length; i++){
-                concert_list.push(new Concert(
-                    result[i].eventDateName,
-                    result[i].name,
-                    result[i].dateOfShow,
-                    result[i].userGroupName,
-                    result[i].eventHallName,
-                    result[i].imageSource
-                ));
-            }
-
-            $("#preloader-remove").remove();
-            LoadEvents(concert_list);
-        },
-        failure : function(response){
-            $("#preloader-remove").remove();
-            $("#content-wrap").append("<p class='flow-text'>Eitthvað fór úrskeðis með að ná í upplýsingarnar</p>");
-        }
-    });
-});
 
 /*
     Notar upplýsingarnar frá AJAX kallinu til að birta það sem á að
     koma fram á síðunni
 */
 function LoadEvents(list){
-    console.log(list);
+    $("#content-wrap").empty();
     for(var i = 0; i < list.length; i++){
         /*
             Ef titill er of langur stækka spjöldin of langt niður og
@@ -75,8 +48,51 @@ function LoadEvents(list){
                 </div> \
             </div>");
     }
-
-    $("#content-wrap").masonry({
-        itemSelector: '.col',
-    });
 }
+
+$(document).ready(function(){
+    //Nær í JSON object frá apis.is um tónleika á næstunni
+    $.ajax({
+        url: "http://apis.is/concerts",
+        type: "GET",
+        success : function(response){
+            result = response.results;
+            for(var i = 0; i < result.length; i++){
+                concert_list.push(new Concert(
+                    result[i].eventDateName,
+                    result[i].name,
+                    result[i].dateOfShow,
+                    result[i].userGroupName,
+                    result[i].eventHallName,
+                    result[i].imageSource
+                ));
+            }
+
+            $("#preloader-remove").remove();
+            LoadEvents(concert_list);
+            InitAutocomplete();
+        },
+        failure : function(response){
+            $("#preloader-remove").remove();
+            $("#content-wrap").append("<p class='flow-text'>Eitthvað fór úrskeðis með að ná í upplýsingarnar</p>");
+        }
+    });
+});
+
+/*
+    Event handlers
+*/
+
+// Ef ýtt er á 'ENTER'
+$("#search").keypress(function(e){
+    if(e.which == 13){
+        var u_input = $("#search").val();
+        SearchConcerts(u_input, concert_list);
+    }
+});
+
+// Ef ýtt er á 'leita' takkann
+$("#searchButton").on("click", function(){
+    var u_input = $("#search").val();
+    SearchConcerts(u_input, concert_list);
+});
