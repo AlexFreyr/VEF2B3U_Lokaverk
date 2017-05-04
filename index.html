@@ -6,6 +6,7 @@
 
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+    <link rel="stylesheet" href="css/main.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
 <body>
@@ -22,6 +23,18 @@
         </div>
         <div class="input-field col s3">
             <a class="waves-effect waves-light btn blue lighten-1" id="searchButton"><i class="material-icons right">search</i>Leita</a>
+        </div>
+    </div>
+
+    <div class="filter-block">
+        <div class="chip" id="az">
+            Raða frá A-Z
+        </div>
+        <div class="chip" id="za">
+            Raða frá Z-A
+        </div>
+        <div class="chip" id="orderDate">
+            Raða frá dagsetningu
         </div>
     </div>
 
@@ -46,6 +59,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
 <script type="text/javascript" src="js/search.js"></script>
+<script type="text/javascript" src="js/filters.js"></script>
 
 </body>
 </html>
