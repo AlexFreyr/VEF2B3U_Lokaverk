@@ -94,7 +94,6 @@ function LoadEvents(list){
                     </div> \
                     <div class='card-content'> \
                         <span class='card-title activator grey-text text-darken-4 truncate'>" + title + "<i class='material-icons right'>more_vert</i></span> \
-                        <p><a href='#'>Meiri upplýsingar</a></p> \
                     </div> \
                     <div class='card-reveal'> \
                         <span class='card-title grey-text text-darken-4'>" + list[i].eventDateName + "<i class='material-icons right'>close</i></span>\
